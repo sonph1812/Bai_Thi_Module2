@@ -53,7 +53,8 @@ export class ProductMenu {
 
         } while (choice != 0)
     }
-    CreateProduct(){
+
+    CreateProduct() {
         console.log("**Tạo Sản phẩm mới**")
         let product = this.inputProduct();
         this.ProductManagement.CreateNew(product);
@@ -104,12 +105,21 @@ export class ProductMenu {
             console.log(`${i + 1},${products[i].name},${products[i].type},${products[i].price},${products[i].amount},${products[i].createDay},${products[i].description}`)
 
         }
-        let ProductCode = +rl.question("Chọn sản phẩm muốn sửa")
-        let indexUpdate = this.ProductManagement.findByProductCode(ProductCode)
-        if (indexUpdate !== -1) {
-            let Product = this.inputProduct();
-            Product.productCode = ProductCode;
-            this.ProductManagement.UpdateByProductCode(ProductCode, Product);
+        let Name = rl.question("Chọn sản phẩm muốn sửa")
+        let nameUpdate = this.ProductManagement.findByProductName(Name)
+        if (nameUpdate) {
+            let name = rl.question("nhập tên: ")
+            let type = rl.question("nhập thể loại: ")
+            let price = +rl.question("nhập giá: ")
+            let amount = +rl.question("nhập số lượng: ")
+            let createDay = rl.question("nhập ngày nhập sản phẩm: ")
+            let description = rl.question("nhập Mô tả: ")
+            nameUpdate.name = name
+            nameUpdate.type = type
+            nameUpdate.price = price
+            nameUpdate.amount = amount
+            nameUpdate.createDay = createDay
+            nameUpdate.description = description
             console.log("Sản phẩm đã được thay đổi")
         } else {
             console.log("Nhập sai mã sản phẩm")
@@ -123,7 +133,7 @@ export class ProductMenu {
         let amount = +rl.question("nhập số lượng: ")
         let createDay = rl.question("nhập ngày nhập sản phẩm: ")
         let description = rl.question("nhập Mô tả: ")
-        return new Product( name, type, price, amount, createDay, description)
+        return new Product(name, type, price, amount, createDay, description)
 
     }
 }
